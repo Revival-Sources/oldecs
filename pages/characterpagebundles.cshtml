@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OldEcs - Character Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .dark-square {
+            width: 600px;
+            height: 600px;
+            background-color: #555;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .top-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .menu-item {
+            color: #fff;
+            font-size: 18px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .item-box {
+            width: 100px;
+            height: 100px;
+            background-color: #555;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .item-info {
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .item-info-title {
+            font-weight: bold;
+        }
+        
+        .item-info-type {
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-square">
+        <div class="top-menu">
+            <div class="menu-item">Hats</div>
+            <div class="menu-item">Faces</div>
+            <div class="menu-item">Torso</div>
+            <div class="menu-item">Body Color</div>
+            <div class="menu-item">Left Arm</div>
+            <div class="menu-item">Right Arm</div>
+            <div class="menu-item">Left Leg</div>
+            <div class="menu-item">Right Leg</div>
+            <div class="menu-item">Packages</div>
+        </div>
+
+        <div class="item-box" style="background-image: url('/api/catalog/itemidhere/image')"></div>
+        <div class="item-info">
+            <div class="item-info-title">Item Title</div>
+            <div class="item-info-type">Type: ASSET_TYPE</div>
+        </div>
+    </div>
+</body>
+</html>

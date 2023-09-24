@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oldecs - ITEMNAME</title>
+    <meta name="title" content="Oldecs - ITEMNAME">
+    <meta name="description" content="OldEcs is a 2016 revival built from scratch, the site is still work in progress so if you see any issues contact us!">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+        }
+
+        .top-bar {
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+            margin-right: 20px;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+        }
+
+        .image {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .back {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .limited {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: rgb(0, 255, 0);
+        }
+        .unique {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 0px;
+            margin-bottom: 10px;
+            color: rgb(255, 230, 0);
+        }
+
+        .description {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .creator {
+            text-align: right;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .price-image {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        .price {
+            font-size: 18px;
+        }
+
+        .purchase-button {
+            text-align: center;
+        }
+
+        .purchase-button button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .purchase-button button:hover {
+            background-color: #3E3E3E;
+        }
+
+        /* Menu Panel Styles */
+                .menu-icon {
+                    color: #ffffff;
+                    font-size: 24px;
+                    cursor: pointer;
+                    transition: transform 0.3s ease-in-out;
+                }
+        
+                .menu-icon:hover {
+                    transform: rotate(90deg);
+                }
+        
+                .menu-icon.tilt {
+                    transform: rotate(90deg) scale(1.1);
+                }
+        
+                .menu-panel {
+            background-color: #555;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            text-align: center;
+        }
+
+        .menu-panel.open {
+            display: block;
+        }
+
+        .menu-item {
+            margin-bottom: 5px;
+        }
+
+        .menu-item a {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+        .menu-item {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-item a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .purchase-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+}
+
+.purchase-modal {
+  background-color: #222;
+  color: #fff;
+  width: 400px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cancel-button,
+.confirm-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button {
+  margin-right: 10px;
+}
+
+.cancel-button:hover,
+.confirm-button:hover {
+  background-color: #3E3E3E;
+}
+           .resellers-container {
+        margin-top: 20px;
+        text-align: center;
+        color: #ccc;
+      }
+
+      .resellers-text {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .resellers-list {
+        margin-top: 10px;
+      }
+
+      .reseller-item {
+        margin-bottom: 5px;
+      }
+
+      .reseller-item button {
+        padding: 5px 10px;
+        font-size: 14px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .reseller-item button:hover {
+        background-color: #45a049;
+      }
+                .sell-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .sell-icon:hover {
+            color: #aaa;
+        }
+        
+        .sell-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+        }
+
+        .sell-modal {
+            background-color: #222;
+            color: #fff;
+            width: 400px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cancel-button2,
+        .confirm-button2 {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cancel-button2 {
+            margin-right: 10px;
+        }
+
+        .cancel-button2:hover,
+        .confirm-button2:hover {
+            background-color: #3E3E3E;
+        }
+                .sell-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sell-button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+<div class="text">
+    Oldecs
+</div>
+<a class="back" href="/catalog">Back</a>
+        <div class="sell-icon">
+            <i class="fas fa-ellipsis-v"></i>
+        </div>
+    </div>
+    </div>
+
+    <div class="container">
+        <img class="image" src="/api/catalog/$ItemIDHERE$/image">
+        <div class="title">$ITEMNAME$</div>
+        <div class="description">$ITEMDESCRIPTION$</div>
+        <div class="creator">Creator: NAME</div>
+        <div class="limited">$LIMITEDHERE$</div>
+        <div class="unique">$UNIQUEHERE$</div>
+        <div class="price-container">
+            <img class="price-image" src="/static/img/robux.png" alt="the icon for rabax 🤑">
+            <div class="price">$ITEMPRICE$</div>
+        </div>
+        <div class="purchase-button">
+            <button>Purchase</button>
+        </div>
+    </div>
+    <div class="purchase-popup">
+    <div class="purchase-overlay"></div>
+    <div class="purchase-modal">
+        <h2>Confirm Purchase</h2>
+        <p id="purchasething">Are you sure you want to purchase $ITEMNAME$ for $ITEMPRICEFR$ $CURRENCYTYPEHERE$?</p>
+        <div class="purchase-actions">
+            <button class="cancel-button">Cancel</button>
+            <button class="confirm-button">Confirm</button>
+        </div>
+    </div>
+</div>
+    <div class="menu-panel">
+        <div class="menu-item"><a href="/settings">Settings</a></div>
+        <div class="menu-item"><a href="/help">Help</a></div>
+        <div class="menu-item"><a href="/logout">Logout</a></div>
+        <div class="menu-item">Robux: ROBUXHERE<img src="/static/img/robux.png"></div>
+        <div class="menu-item">Tix: TIXHERE <img src="/static/img/tix.png"></div>
+        <div class="menu-item"><a href="https://discord.gg/oldecs">Discord</a></div>
+    </div>
+        <div class="purchase-button">
+        <button class="sell-button">Sell</button>
+    </div>
+<div class="resellers-container">
+<h3 class="resellers-text">Resellers</h3>
+<div class="resellers-list">
+<!--resellers-->
+</div>
+ <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const resellersList = document.querySelector('.resellers-list');
+
+        // Handle buy button click event
+        resellersList.addEventListener('click', (event) => {
+          const buyButton = event.target.closest('.buy-button');
+          if (buyButton) {
+            const userId = buyButton.dataset.userid;
+            const itemId = buyButton.dataset.itemid;
+            const price = buyButton.dataset.price;
+            const serial = buyButton.dataset.serial;
+
+            // Process the purchase or perform any necessary actions
+            console.log(`Buy button clicked - User ID: ${userId}, Item ID: ${itemId}, Price: ${price}`);
+            fetch(`https://www.oldecs.com/api/catalog/buy/item/${itemId}?userid=${userId}&price=${price}&serial=${serial}`, {method: "POST"})
+            .then((data) => {
+
+            })
+          }
+        });
+      });
+    </script>
+     <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const resellersList = document.querySelector('.resellers-list');
+
+        // Handle buy button click event
+        resellersList.addEventListener('click', (event) => {
+          const buyButton = event.target.closest('.unsell-button');
+          if (buyButton) {
+            const userId = buyButton.dataset.userid;
+            const itemId = buyButton.dataset.itemid;
+            const serial = buyButton.dataset.serial;
+
+            // Process the purchase or perform any necessary actions
+            console.log(`Stop Selling button clicked - User ID: ${userId}, Item ID: ${itemId}, Serial: ${serial}`);
+            fetch(`https://www.oldecs.com/api/catalog/unsell/item/${itemId}?userid=${userId}&serial=${serial}`, {method: "POST"})
+            .then((data) => {
+                window.location.reload()
+            })
+          }
+        });
+      });
+    </script>
+ <div class="sell-popup">
+        <div class="sell-overlay"></div>
+        <div class="sell-modal">
+            <h2>Confirm Sell</h2>
+            <p id="sellingPrice">Enter the selling price:</p>
+            <input type="text" id="sellingInput" />
+            <div class="sell-actions">
+                <button class="confirm-button2">Confirm</button>
+                <button class="cancel-button2">Cancel</button>
+            </div>
+        </div>
+</div>
+        <script>
+        var menuIcon = document.querySelector('.menu-icon');
+        var menuPanel = document.querySelector('.menu-panel');
+
+        menuIcon.addEventListener('click', function() {
+            menuIcon.classList.toggle('tilt');
+            menuPanel.classList.toggle('open');
+        });
+    </script> 
+<script>
+const purchaseButton = document.querySelector('.purchase-button button');
+const purchasePopup = document.querySelector('.purchase-popup');
+const cancelButton = document.querySelector('.cancel-button');
+const confirmButton = document.querySelector('.confirm-button');
+const purchaseText = document.getElementById('purchasething');
+
+purchaseButton.addEventListener('click', () => {
+    purchasePopup.style.display = 'block';
+});
+
+cancelButton.addEventListener('click', () => {
+    purchasePopup.style.display = 'none';
+    if (purchaseText.textContent == "Purchase completed!" || cancelButton.textContent == "Exit") {
+        window.location.reload();
+    }
+});
+
+confirmButton.addEventListener('click', () => {
+    // Send the purchase request
+    const itemId = $ITEMID$; // Replace with the actual item ID or identifier
+    purchaseText.textContent = "Processing purchase..."
+    
+    fetch(`/api/purchase/${itemId}`, { method: 'POST' })
+        .then(response => {
+            // Handle the response as needed
+            if (response.status == 502) {
+                purchaseText.textContent = "Unable to purchase item, Status code 502";
+                confirmButton.style.display = "none";
+                cancelButton.textContent = "Exit"
+                return
+            }
+            if (response.status == 404) {
+                purchaseText.textContent = "Unable to purchase item, Error: Status 404";
+                confirmButton.style.display = "none";
+                cancelButton.textContent = "Exit"
+                return
+            }
+            if (response.status == 400) {
+                purchaseText.textContent = "Unable to purchase item, Error: Not enough funds.";
+                confirmButton.style.display = "none";
+                cancelButton.textContent = "Exit"
+                return
+            }
+            purchaseText.textContent = "Purchase completed!";
+            confirmButton.style.display = "none";
+            cancelButton.textContent = "Exit"
+
+        })
+        .catch(error => {
+            // Handle any errors that occur during the purchase
+            console.error('Purchase error:', error);
+            purchaseText.textContent = `There was an error processing your purchase: ${error}`;
+            confirmButton.style.display = "none";
+        });
+});
+</script>
+  <script>
+        var sellButton = document.querySelector('.sell-button');
+        var sellPopup = document.querySelector('.sell-popup');
+        var cancelButton2 = document.querySelector('.cancel-button2');
+        var confirmButton2 = document.querySelector('.confirm-button2');
+        var sellingPriceElement = document.getElementById('sellingInput');
+        const sellingpric = document.getElementById('sellingPrice');
+
+        sellButton.addEventListener('click', function() {
+            sellPopup.style.display = 'block';
+        });
+
+        cancelButton2.addEventListener('click', function() {
+            window.location.reload();
+        });
+
+        confirmButton2.addEventListener('click', function() {
+            var sellingPrice = document.getElementById('sellingInput').value;
+            fetch(`https://www.oldecs.com/api/catalog/sell/item/ASSETIDHERELUL?price=${sellingPrice}&userid=USERIDHERELUL`, {method: "POST"})
+            .then((data) => {
+                sellingPriceElement.style.display = "none";
+                confirmButton2.style.display = "none";
+                if (data.status == 404) {
+                sellingpric.textContent = "Not Found";
+                }
+                else if (data.status == 400) {
+                    sellingpric.textContent = "Bad Request";
+                }
+                else if (data.status == 302) {
+                    sellingpric.textContent = "Idk Anymore";
+                }
+                else if (data.status == 200) {
+                    sellingpric.textContent = `Success! sold item for ${sellingPrice} Robux`;
+                }
+            })
+        });
+    </script>
+</body>
+    <script>
+        var menuIcon = document.querySelector('.menu-icon');
+        var menuPanel = document.querySelector('.menu-panel');
+
+        menuIcon.addEventListener('click', function() {
+            menuIcon.classList.toggle('tilt');
+            menuPanel.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

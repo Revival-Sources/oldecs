@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="name" content="OldEcs - USERNAME's Profile">
+    <meta name="description" content="USERDESCRIPTION">
+    <title>OldEcs - USERNAME's Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+        }
+                .top-bar {
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+        }
+
+        .dark-square {
+            width: 600px;
+            height: 600px;
+            background-color: #555;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            background-image: url('/api/users/UserIdHerEbrO/image');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-username {
+            font-weight: bold;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+                .menu-icon {
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu-icon:hover {
+            transform: rotate(90deg);
+        }
+
+        .menu-icon.tilt {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .menu-panel {
+            background-color: #555;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            text-align: center;
+        }
+
+        .menu-panel.open {
+            display: block;
+        }
+
+        .menu-item {
+            margin-bottom: 5px;
+        }
+
+        .menu-item a {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+        .menu-item {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-item a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-description {
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3E3E3E;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .button:hover {
+            background-color: #000000;
+        }
+
+        .container-bottom {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 20px;
+        }
+
+        .large-rectangle {
+            width: 400px;
+            height: 200px;
+            background-color: #555;
+            border-radius: 10px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="title">OldEcs</div>
+        <a href="/home" class="home" style="color: #fff">Home</a>
+        <a href="/games" class="games" style="color: #fff">Games</a>
+        <a href="/catalog" class="catalog" style="color: #fff">Catalog</a>
+        <a href="/develop" class="develop" style="color: #fff">Develop</a>
+    </div>
+    <div class="menu-panel">
+        <div class="menu-item"><a href="/settings">Settings</a></div>
+        <div class="menu-item"><a href="/help">Help</a></div>
+        <div class="menu-item"><a href="/logout">Logout</a></div>
+        <div class="menu-item">Robux: ROBUXHERE<img src="/static/img/robux.png"></div>
+        <div class="menu-item">Tix: TIXHERE <img src="/static/img/tix.png"></div>
+        <div class="menu-item"><a href="https://discord.gg/oldecs">Discord</a></div>
+        <div class="menu-item"><a href="/users/$USERID$/inventory">My Inventory</a></div>
+    </div>
+    <div class="container">
+        <div class="dark-square">
+            <div class="profile-image"></div>
+            <div>
+                <div class="profile-username">Username</div>
+                <div class="profile-description">Description</div>
+            </div>
+            <div class="button-container">
+                <div class="button message-button">Message</div>
+                <div class="button add-friend-button">Add Friend</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

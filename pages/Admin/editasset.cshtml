@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Editing ASSET</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .image-square {
+            width: 200px;
+            height: 200px;
+            background-color: #555;
+            background-image: url('/api/catalog/1/image');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-bottom: 20px;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .save-button {
+            background-color: #009688;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .save-button:hover {
+            background-color: #013e38;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Editing | ASSET</div>
+    <div class="image-square"></div>
+    <input type="text" class="text-input" id="name" placeholder="Name">
+    <input type="text" class="text-input" id="description" placeholder="Description">
+    <input type="number" class="text-input" id="price" placeholder="Price">
+    <input type="number" class="text-input" id="max_copies" placeholder="Max Copies">
+    <label class="checkbox-label">
+        <input type="checkbox" id="offsale">
+        Offsale
+    </label>
+        <label class="checkbox-label">
+        <input type="checkbox" id="lim" value="off"> 
+        Limited
+    </label>
+        <label class="checkbox-label">
+        <input type="checkbox" id="limu" value="off">
+        Limited Unique
+    </label>
+    <button class="save-button">Save Changes</button>
+</body>
+<script>
+    var checkbox1 = document.getElementById("lim");
+    checkbox1.addEventListener("click", function() {
+        checkbox1.checked = checkbox1.checked;
+    });
+
+    var checkbox2 = document.getElementById("limu");
+    checkbox2.addEventListener("click", function() {
+        checkbox2.checked = checkbox2.checked;
+    });
+</script>
+<script>
+    const savechanges = document.querySelector(".save-button");
+    const name = document.getElementById("name");
+    const desc = document.getElementById("description");
+    const price = document.getElementById("price");
+    const lim = document.getElementById("lim");
+    const limu = document.getElementById("limu");
+    const max_copies = document.getElementById("max_copies");
+    const offsale = document.getElementById("offsale");
+    savechanges.addEventListener('click', function() {
+        fetch(`https://www.oldecs.com/api/admin/asset/edit/idherelol?name=${name.value}&desc=${desc.value}&price=${price.value}&lim=${lim.checked}&limu=${limu.checked}&max_copies=${max_copies.value}&offsale=${offsale.checked}`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            window.location.href = `/catalog/${data.message}`
+            // Handle the response here
+        })
+        .catch(error => {
+            // Handle errors here
+        });
+    });
+</script>
+</html>

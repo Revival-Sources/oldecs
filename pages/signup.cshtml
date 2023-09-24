@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OldEcs Signup</title>
+    <meta name="description" content="OldEcs is a 2016 revival built from scratch, the site is still work in progress so if you see any issues contact us!">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+        }
+        
+        .top-bar {
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+        }
+        
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-item {
+            margin-right: 10px;
+        }
+        
+        .nav-item:last-child {
+            margin-right: 0;
+        }
+        
+        .nav-item a {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .nav-item a:hover,
+        .nav-item a.active {
+            border-bottom: 2px solid #fff;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-top: 50px;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #fff;
+            background-color: #444;
+            color: #fff;
+            border-radius: 5px;
+        }
+        
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #555;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .form-group input[type="submit"]:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="logo">
+                OldEcs | Relive 2016
+            </div>
+            <div class="nav">
+                <div class="nav-item">
+                    <a href="/login">LOGIN</a>
+                </div>
+<div class="nav-item">
+    <a href="/" class="active">SIGNUP</a>
+</div>
+<div class="nav-item">
+    <a href="/about">ABOUT</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Signup</h2>
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+            </div>
+            <div class="cf-turnstile" id="cf-turns" data-sitekey="0x4AAAAAAAGfHF4qlmsVuiag" data-callback="javascriptCallback"></div>
+            <div class="form-group">
+                <input type="submit" value="Sign Up">
+            </div>
+        </form>
+    </div>
+</body>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" async defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+<script type="text/javascript">
+    window.onloadTurnstileCallback = function () {
+    turnstile.render('cf-turns', {
+        sitekey: '0x4AAAAAAADch0Ba3E6N-jTt',
+        callback: function(token) {
+            console.log(`Challenge Success ${token}`);
+        },
+    });
+};
+</html>

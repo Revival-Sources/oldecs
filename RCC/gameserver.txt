@@ -1,0 +1,191 @@
+function start(placeId, port, url)
+------------------- UTILITY FUNCTIONS --------------------------
+
+
+function waitForChild(parent, childName)
+	while true do
+		local child = parent:findFirstChild(childName)
+		if child then
+			return child
+		end
+		parent.ChildAdded:wait()
+	end
+end
+
+-----------------------------------END UTILITY FUNCTIONS -------------------------
+
+-----------------------------------"CUSTOM" SHARED CODE----------------------------------
+
+pcall(function() settings().Network.UseInstancePacketCache = true end)
+pcall(function() settings().Network.UsePhysicsPacketCache = true end)
+--pcall(function() settings()["Task Scheduler"].PriorityMethod = Enum.PriorityMethod.FIFO end)
+pcall(function() settings()["Task Scheduler"].PriorityMethod = Enum.PriorityMethod.AccumulatedError end)
+
+--settings().Network.PhysicsSend = 1 -- 1==RoundRobin
+--settings().Network.PhysicsSend = Enum.PhysicsSendMethod.ErrorComputation2
+settings().Network.PhysicsSend = Enum.PhysicsSendMethod.TopNErrors
+settings().Network.ExperimentalPhysicsEnabled = true
+settings().Network.WaitingForCharacterLogRate = 100
+pcall(function() settings().Diagnostics:LegacyScriptMode() end)
+
+-----------------------------------START GAME SHARED SCRIPT------------------------------
+
+local assetId = placeId -- might be able to remove this now
+
+local scriptContext = game:GetService('ScriptContext')
+pcall(function() scriptContext:AddStarterScript(37801172) end)
+scriptContext.ScriptsDisabled = true
+
+game:SetPlaceID(assetId, false)
+game:GetService("ChangeHistoryService"):SetEnabled(false)
+
+-- establish this peer as the Server
+local ns = game:GetService("NetworkServer")
+local adminsList = nil
+if url~=nil then
+	pcall(function() game:GetService("Players"):SetAbuseReportUrl(url .. "/AbuseReport/InGameChatHandler.ashx") end)
+	pcall(function() game:GetService("ScriptInformationProvider"):SetAssetUrl(url .. "/Asset/") end)
+	pcall(function() game:GetService("ContentProvider"):SetBaseUrl(url .. "/") end)
+	-- pcall(function() game:GetService("Players"):SetChatFilterUrl(url .. "/Game/ChatFilter.ashx") end)
+
+	game:GetService("BadgeService"):SetPlaceId(placeId)
+
+	game:GetService("BadgeService"):SetIsBadgeLegalUrl("")
+	game:GetService("InsertService"):SetBaseSetsUrl(url .. "/Game/Tools/InsertAsset.ashx?nsets=10&type=base")
+	game:GetService("InsertService"):SetUserSetsUrl(url .. "/Game/Tools/InsertAsset.ashx?nsets=20&type=user&userid=%d")
+	game:GetService("InsertService"):SetCollectionUrl(url .. "/Game/Tools/InsertAsset.ashx?sid=%d")
+	game:GetService("InsertService"):SetAssetUrl(url .. "/Asset/?id=%d")
+	game:GetService("InsertService"):SetAssetVersionUrl(url .. "/Asset/?assetversionid=%d")
+	
+	pcall(function() loadfile(url .. "/Game/LoadPlaceInfo.ashx?PlaceId=" .. placeId)() end)
+	
+	-- pcall(function() 
+	--			if access then
+	--				loadfile(url .. "/Game/PlaceSpecificScript.ashx?PlaceId=" .. placeId .. "&" .. access)()
+	--			end
+	--		end)
+end
+local function shutdown()
+	print("[info] shut down server")
+	-- if isDebugServer then
+		-- print("Would shut down, but this is a debug server, so shutdown is disabled")
+		-- return
+	-- end
+	-- pcall(function()
+	-- 	game:HttpPost(url .. "/gs/shutdown", http:JSONEncode({
+	-- 		["authorization"] = "_AUTHORIZATION_STRING_",
+	-- 		["serverId"] = game.JobId,
+	-- 		["placeId"] = placeId,
+	-- 	}), false, "application/json");
+	-- end)
+	pcall(function()
+		ns:Stop()
+	end)
+end
+
+local function processModCommand(sender, message)
+    if string.sub(message, 1, 9) == ":shutdown " then
+        print("Shutting down game rn..");
+        shutdown();
+    end
+	if string.sub(message, 1, 5) == ":ban " then
+		local userToBan = string.sub(string.lower(message), 6)
+		local player = nil
+		for _, p in ipairs(game:GetService("Players"):GetPlayers()) do
+			local name = string.sub(string.lower(p.Name), 1, string.len(userToBan))
+			if name == userToBan and p ~= sender then
+				player = p
+				break
+			else
+				print("Not a match!",name,"vs",userToBan)
+			end
+		end
+		print("ban", player, userToBan)
+		if player ~= nil then
+			player:Kick("Banned from this server by an administrator")
+			bannedIds[player.userId] = {
+				["Name"] = player.Name, -- for unban
+			}
+		end
+	end
+	if string.sub(message, 1, 7) == ":unban " then
+		local userToBan = string.sub(string.lower(message), 8)
+		local userId = nil
+		for id, data in pairs(bannedIds) do
+			local name = string.sub(string.lower(data.Name), 1, string.len(userToBan))
+			if name == userToBan then
+				userId = id
+				break
+			end
+		end
+		print("ban", userId)
+		if userId ~= nil then
+			table.remove(bannedIds, userId)
+		end
+	end
+end
+local ADMIN_ICON = 'rbxasset://textures/ui/icon_admin-16.png'
+game:GetService("Players").PlayerAdded:connect(function(player)
+	--print("Player " .. player.userId .. " added")
+
+    -- reportPlayerEvent(player.userId, "Join")
+
+	--if bannedIds[player.userId] ~= nil then
+	--	player:Kick("Banned from this server by an administrator")
+	--	return
+	--end
+end)
+
+--pcall(function() game:GetService("NetworkServer"):SetIsPlayerAuthenticationRequired(true) end)
+settings().Diagnostics.LuaRamLimit = 0
+--settings().Network:SetThroughputSensitivity(0.08, 0.01)
+--settings().Network.SendRate = 35
+--settings().Network.PhysicsSend = 0  -- 1==RoundRobin
+
+
+game:GetService("Players").PlayerAdded:connect(function(player)
+local adminsList = {3, "3"}
+	print("Player " .. player.userId .. " added")
+	--player.CharacterAppearance = "https://www.oldecs.com/asset/characterfetch.ashx?userid="..player.userId
+	print("Player ".. player.userId .. "'s Character appearance url: " .. player.CharacterAppearance)
+	player.Chatted:Connect(function(msg)
+	print("Player: "..player.Name.." Chatted: "..msg)
+		if adminsList ~= nil and adminsList[player.userId] then
+			print("is an admin",player.Name)
+			processModCommand(player, message)
+		end
+
+	end)
+end)
+
+game:GetService("Players").PlayerRemoving:connect(function(player)
+	print("Player " .. player.userId .. " leaving")
+end)
+
+if placeId~=nil and url~=nil then
+	-- yield so that file load happens in the heartbeat thread
+	wait()
+	
+	-- load the game
+	game:Load(url .. "/asset/?id=" .. placeId)
+end
+
+-- Now start the connection
+ns:Start(port) 
+
+
+scriptContext:SetTimeout(10)
+scriptContext.ScriptsDisabled = false
+
+
+adminsList = {1,3}
+------------------------------END START GAME SHARED SCRIPT--------------------------
+
+
+
+-- StartGame -- 
+game:GetService("RunService"):Run()
+
+
+end
+

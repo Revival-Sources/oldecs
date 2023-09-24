@@ -1,0 +1,1 @@
+{"jobId":"testing123","status":2,"joinScriptUrl":"https://www.oldecs.com/Game/Join.ashx?cookie=cookie","authenticationUrl":"https://www.oldecs.com/Login/Negotiate.ashx","authenticationTicket":"cookie=cookie","message":null}

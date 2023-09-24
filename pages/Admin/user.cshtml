@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            align-items: flex-start;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-right: 20px;
+        }
+
+        .profile-image {
+            background-image: url("/api/users/USERIDHERELOL/image");
+                background-size: cover;
+    background-position: center;
+            width: 200px;
+            height: 200px;
+            background-color: #555;
+        }
+
+        .username {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .description {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .created-at {
+            font-size: 16px;
+            margin-top: 10px;
+
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .sidebar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3E3E3E;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+            margin-left: 1000px;
+        }
+
+        .sidebar button:hover {
+            background-color: #000000;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="profile">
+            <div class="profile-image"></div>
+            <div class="username">Username</div>
+            <div class="description">Description</div>
+            <div class="created-at">Created At</div>
+        </div>
+        <div class="sidebar">
+            <button class="ban">Ban Account</button>
+            <button class="unban">Unban Account</button>
+            <button class="changeuser">Change Username</button>
+            <button class="resetuser">Reset Username</button>
+            <button class="reviewassets">Review Assets</button>
+            <button class="deleteacc">Delete Account</button>
+            <button class="admin">Make Admin</button>
+            <button class="unadmin">Remove Admin</button>
+            <button class="render">Render Avatar</button>
+            <button class="viewprofile">View Profile</button>
+            <button onclick="window.location.href='/admin/users'">Go Back</button>
+        </div>
+    </div>
+    <script>
+       const ban = document.querySelector(".ban")
+       ban.addEventListener("click", function() {
+        console.log("BAN")
+        fetch("/api/admin/users/useridherelol/ban", { method: 'POST' })
+       })
+    const unban = document.querySelector(".unban")
+       unban.addEventListener("click", function() {
+        console.log("UNBAN")
+        fetch("/api/admin/users/useridherelol/unban", { method: 'POST' })
+       })
+    const admin = document.querySelector(".admin")
+       admin.addEventListener("click", function() {
+        console.log("ADMINIFY")
+        fetch("/api/admin/users/useridherelol/adminify", { method: 'POST' })
+       })
+           const unadmin = document.querySelector(".unadmin")
+       unadmin.addEventListener("click", function() {
+        console.log("UNADMINIFY")
+        fetch("/api/admin/users/useridherelol/unadminify", { method: 'POST' })
+       })
+           const render = document.querySelector(".render")
+       render.addEventListener("click", function() {
+        console.log("RENDERUS")
+        fetch("/render/avatar?id=Useridherefr", { method: 'POST' })
+       })
+       const view = document.querySelector(".viewprofile")
+       view.addEventListener("click", function() {
+        window.location.href = "/users/iddd/profile"
+       })
+    </script>
+</body>
+</html>

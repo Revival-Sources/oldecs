@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>OldEcs - Games</title>
+    <meta name="name" content="OldEcs - Games">
+    <meta name="description" content="OldEcs is a 2016 revival built from scratch, the site is still work in progress so if you see any issues contact us!">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+
+
+body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+        }
+        .top-bar {
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+            margin-right: 20px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin-right: 10px;
+        }
+
+        .nav-item:last-child {
+            margin-right: 0;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .nav-item a:hover,
+        .nav-item a.active {
+            border-color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #555;
+            margin-right: 10px;
+        }
+
+        .user-username {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .user-membership {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .menu-icon {
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu-icon:hover {
+            transform: rotate(90deg);
+        }
+
+        .menu-icon.tilt {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .menu-panel {
+            background-color: #555;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            text-align: center;
+        }
+
+        .menu-panel.open {
+            display: block;
+        }
+
+        .menu-item {
+            margin-bottom: 5px;
+        }
+
+        .menu-item a {
+            text-decoration: double;
+            color: #fff;
+            padding: 5px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+        .menu-item {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px;
+            display: block;
+            transition: background-color 0.3s ease;
+            text-underline-position: none;
+        }
+
+        .menu-item a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .popular-games {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .game-box {
+            width: 100px;
+            height: 100px;
+            background-color: #555;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            gap: 20px;
+        }
+
+        .game-box img {
+            max-width: 100%;
+            gap: 20px;
+            max-height: 100%;
+        }
+.title2 {
+  margin-top: 10px;
+  position: absolute;
+  margin-bottom: -110px;
+    font-size: 12px;
+  text-align: center;
+  color: #fff;
+    white-space: normal;
+  width: 8%;
+}
+.playing {
+  margin-top: -16px;
+  position: absolute;
+  margin-bottom: -110px;
+    font-size: 12px;
+  text-align: center;
+  color: #fff;
+    white-space: normal;
+  width: 8%;
+}
+</style>
+ 
+</head>
+<body>
+    <div class="top-bar">
+        <div class="title">OldEcs</div>
+        <a href="/home" class="home" style="color: #fff">Home</a>
+        <a href="/games" class="games" style="color: #fff">Games</a>
+        <a href="/catalog" class="catalog" style="color: #fff">Catalog</a>
+        <a href="/develop" class="develop" style="color: #fff">Develop</a>
+        <a href="/My/Character.aspx" class="mycharacter" style="color: #fff">My Character</a>
+    </div>
+    <div class="popular-games">
+    </div>
+        <script>
+        var menuIcon = document.querySelector('.menu-icon');
+        var menuPanel = document.querySelector('.menu-panel');
+
+        menuIcon.addEventListener('click', function() {
+            menuIcon.classList.toggle('tilt');
+            menuPanel.classList.toggle('open');
+        });
+    </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+  var titleElement = document.querySelector('.title2');
+  var textLength = titleElement.textContent.length;
+  var fontSize = 18;
+
+  // Adjust font size based on text length
+  if (textLength > 10) {
+    fontSize = 18 - (textLength - 10);
+  }
+
+  // Apply the new font size
+    titleElement.style.fontSize = fontSize + 'px';
+});
+    </script>
+</body>
+</html>

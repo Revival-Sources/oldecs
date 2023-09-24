@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+        }
+
+        .top-bar {
+            background-color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+            margin-right: 20px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin-right: 10px;
+        }
+
+        .nav-item:last-child {
+            margin-right: 0;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .nav-item a:hover,
+        .nav-item a.active {
+            border-color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-select {
+            padding: 10px;
+            background-color: #555;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #555;
+            display: none;
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: 5px;
+            text-align: left;
+        }
+
+        .dropdown-select:hover,
+        .dropdown-options:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown.open .dropdown-options {
+            display: block;
+        }
+
+        .dropdown-option {
+            padding: 5px;
+        }
+
+        .dropdown-option:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">
+            Membership Selector
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Membership Selector</h2>
+        <div class="dropdown">
+            <button class="dropdown-select" onclick="sendButtonClick()" id = "selected">None</button>
+            <div class="dropdown-options">
+                <div class="dropdown-option">None</div>
+                <div class="dropdown-option">BC</div>
+                <div class="dropdown-option">TBC</div>
+                <div class="dropdown-option">OBC</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var dropdown = document.querySelector('.dropdown');
+        var selectButton = dropdown.querySelector('.dropdown-select');
+        var options = dropdown.querySelectorAll('.dropdown-option');
+        options.forEach(function(option) {
+            option.addEventListener('click', function() {
+                var selectedOption = this.textContent;
+            fetch('/membership-controller', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(selectedOption)
+        })
+        .then(response => {
+            // Handle the response if needed
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the request
+        });
+                selectButton.textContent = selectedOption;
+                dropdown.classList.remove('open');
+            });
+        });
+
+        dropdown.addEventListener('click', function() {
+            dropdown.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
